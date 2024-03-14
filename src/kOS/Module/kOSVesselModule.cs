@@ -122,18 +122,18 @@ namespace kOS.Module
             if (SafeHouse.Logger != null)
             {
                 SafeHouse.Logger.SuperVerbose("kOSVesselModule OnDestroy()!");
-                if (initialized)
-                {
-                    UnHookEvents();
-                    ClearParts();
-                }
-                foreach (var key in flightControlParameters.Keys.ToList())
-                {
-                    RemoveFlightControlParameter(key);
-                }
-                flightParametersAdded = false;
-                initialized = false;
             }
+            UnHookEvents();
+            if (initialized)
+            {
+                ClearParts();
+            }
+            foreach (var key in flightControlParameters.Keys.ToList())
+            {
+                RemoveFlightControlParameter(key);
+            }
+            flightParametersAdded = false;
+            initialized = false;
         }
 
         /// <summary>
