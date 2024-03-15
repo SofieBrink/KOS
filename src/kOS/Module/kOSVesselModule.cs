@@ -279,7 +279,10 @@ namespace kOS.Module
         /// </summary>
         private void UnHookEvents()
         {
-            ConnectivityManager.RemoveAutopilotHook(Vessel, UpdateAutopilot);
+            if (ConnectivityManager.Instance != null)
+            {
+                ConnectivityManager.RemoveAutopilotHook(Vessel, UpdateAutopilot);
+            }
 
             if (workAroundEventsEnabled)
             {
@@ -287,8 +290,12 @@ namespace kOS.Module
                 TimingManager.FixedUpdateRemove(TimingManager.TimingStage.BetterLateThanNever, resetControllable);
                 workAroundEventsEnabled = false;
             }
-            AutopilotMsgManager.Instance.TurnOffSuppressMessage(this);
-            AutopilotMsgManager.Instance.TurnOffSasMessage(this);
+
+            if (AutopilotMsgManager.Instance != null)
+            {
+                AutopilotMsgManager.Instance.TurnOffSuppressMessage(this);
+                AutopilotMsgManager.Instance.TurnOffSasMessage(this);
+            }
         }
 
         #region Hack to fix "Require Signal for Control"
